@@ -1,0 +1,2 @@
+sudo dpkg --remove --force-remove-reinstreq ids-server
+sudo rm -rf /var/lib/dpkg/info/ids-server.*

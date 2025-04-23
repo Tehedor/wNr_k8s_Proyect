@@ -1,0 +1,263 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"app-backend\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"port\":5000,\"protocol\":\"TCP\",\"targetPort\":5000}],\"selector\":{\"app\":\"backend\"}}}\n"
+                },
+                "creationTimestamp": "2024-11-28T08:23:46Z",
+                "name": "app-backend",
+                "namespace": "default",
+                "resourceVersion": "1389859",
+                "uid": "ce700436-2d65-4689-9358-52ee7b578f63"
+            },
+            "spec": {
+                "clusterIP": "10.111.189.56",
+                "clusterIPs": [
+                    "10.111.189.56"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "port": 5000,
+                        "protocol": "TCP",
+                        "targetPort": 5000
+                    }
+                ],
+                "selector": {
+                    "app": "backend"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"frontend-deployment\",\"service\":\"frontend-deployment\"},\"name\":\"frontend-service\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":80}],\"selector\":{\"app\":\"frontend-deployment\"},\"type\":\"LoadBalancer\"}}\n"
+                },
+                "creationTimestamp": "2024-11-28T08:23:46Z",
+                "labels": {
+                    "app": "frontend-deployment",
+                    "service": "frontend-deployment"
+                },
+                "name": "frontend-service",
+                "namespace": "default",
+                "resourceVersion": "1389874",
+                "uid": "2683597f-8069-48ed-bbc6-030e827c094c"
+            },
+            "spec": {
+                "allocateLoadBalancerNodePorts": true,
+                "clusterIP": "10.110.117.245",
+                "clusterIPs": [
+                    "10.110.117.245"
+                ],
+                "externalTrafficPolicy": "Cluster",
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "http",
+                        "nodePort": 31790,
+                        "port": 80,
+                        "protocol": "TCP",
+                        "targetPort": 80
+                    }
+                ],
+                "selector": {
+                    "app": "frontend-deployment"
+                },
+                "sessionAffinity": "None",
+                "type": "LoadBalancer"
+            },
+            "status": {
+                "loadBalancer": {
+                    "ingress": [
+                        {
+                            "ip": "172.16.1.209",
+                            "ipMode": "VIP"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "creationTimestamp": "2024-11-25T12:47:21Z",
+                "labels": {
+                    "component": "apiserver",
+                    "provider": "kubernetes"
+                },
+                "name": "kubernetes",
+                "namespace": "default",
+                "resourceVersion": "834897",
+                "uid": "55676904-d3c9-4d36-8e04-a5d7183a7c24"
+            },
+            "spec": {
+                "clusterIP": "10.96.0.1",
+                "clusterIPs": [
+                    "10.96.0.1"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "name": "https",
+                        "port": 443,
+                        "protocol": "TCP",
+                        "targetPort": 6443
+                    }
+                ],
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"mongodb-service\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"port\":27017,\"protocol\":\"TCP\",\"targetPort\":27017}],\"selector\":{\"app\":\"mongo\"}}}\n"
+                },
+                "creationTimestamp": "2024-11-28T08:23:46Z",
+                "name": "mongodb-service",
+                "namespace": "default",
+                "resourceVersion": "1389794",
+                "uid": "0977eb3f-1344-4417-a1fa-64ce9e0db301"
+            },
+            "spec": {
+                "clusterIP": "10.107.69.75",
+                "clusterIPs": [
+                    "10.107.69.75"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "port": 27017,
+                        "protocol": "TCP",
+                        "targetPort": 27017
+                    }
+                ],
+                "selector": {
+                    "app": "mongo"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"mysql-finances\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"port\":3306,\"protocol\":\"TCP\",\"targetPort\":3306}],\"selector\":{\"app\":\"mysql-finances\"}}}\n"
+                },
+                "creationTimestamp": "2024-11-28T08:23:46Z",
+                "name": "mysql-finances",
+                "namespace": "default",
+                "resourceVersion": "1389812",
+                "uid": "aba0ce0b-f6b6-4add-a891-f754aa766687"
+            },
+            "spec": {
+                "clusterIP": "10.110.71.49",
+                "clusterIPs": [
+                    "10.110.71.49"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "port": 3306,
+                        "protocol": "TCP",
+                        "targetPort": 3306
+                    }
+                ],
+                "selector": {
+                    "app": "mysql-finances"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"mysql-users\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"port\":3306,\"protocol\":\"TCP\",\"targetPort\":3306}],\"selector\":{\"app\":\"mysql-users\"}}}\n"
+                },
+                "creationTimestamp": "2024-11-28T08:23:46Z",
+                "name": "mysql-users",
+                "namespace": "default",
+                "resourceVersion": "1389823",
+                "uid": "da8ef8f9-c843-49df-b5ba-01c8bf2d1caa"
+            },
+            "spec": {
+                "clusterIP": "10.111.227.215",
+                "clusterIPs": [
+                    "10.111.227.215"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "port": 3306,
+                        "protocol": "TCP",
+                        "targetPort": 3306
+                    }
+                ],
+                "selector": {
+                    "app": "mysql-users"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

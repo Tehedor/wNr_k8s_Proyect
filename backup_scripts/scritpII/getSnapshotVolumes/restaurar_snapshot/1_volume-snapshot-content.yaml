@@ -1,0 +1,9 @@
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotContent
+metadata:
+  name: <snapshot-content-name>
+spec:
+  volumeSnapshotClassName: <snapshot-class>
+  source:
+    snapshotHandle: <snapshot-id> # Identificador del snapshot del proveedor
+  deletionPolicy: Retain

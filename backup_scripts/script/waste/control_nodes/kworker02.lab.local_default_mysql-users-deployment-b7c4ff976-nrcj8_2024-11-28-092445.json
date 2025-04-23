@@ -1,0 +1,251 @@
+{
+  "apiVersion": "v1",
+  "kind": "Pod",
+  "metadata": {
+    "annotations": {
+      "cni.projectcalico.org/containerID": "c94e4539d5e2fcea4a98a1c4b99aeef485daf3c246e58a4a317408e170b4098b",
+      "cni.projectcalico.org/podIP": "192.168.142.215/32",
+      "cni.projectcalico.org/podIPs": "192.168.142.215/32"
+    },
+    "creationTimestamp": "2024-11-28T08:23:46Z",
+    "generateName": "mysql-users-deployment-b7c4ff976-",
+    "labels": {
+      "app": "mysql-users",
+      "pod-template-hash": "b7c4ff976"
+    },
+    "name": "mysql-users-deployment-b7c4ff976-nrcj8",
+    "namespace": "default",
+    "ownerReferences": [
+      {
+        "apiVersion": "apps/v1",
+        "blockOwnerDeletion": true,
+        "controller": true,
+        "kind": "ReplicaSet",
+        "name": "mysql-users-deployment-b7c4ff976",
+        "uid": "bb063a04-c850-41ab-ab7a-594eeda391df"
+      }
+    ],
+    "resourceVersion": "1389946",
+    "uid": "475152e8-2b99-4518-9392-1406198bcfb8"
+  },
+  "spec": {
+    "containers": [
+      {
+        "env": [
+          {
+            "name": "MYSQL_ROOT_PASSWORD",
+            "value": "password"
+          },
+          {
+            "name": "MYSQL_DATABASE",
+            "value": "userdb"
+          }
+        ],
+        "image": "mysql:8.0",
+        "imagePullPolicy": "IfNotPresent",
+        "lifecycle": {
+          "postStart": {
+            "exec": {
+              "command": [
+                "sh",
+                "-c",
+                "while ! mysqladmin ping -h 127.0.0.1 --silent; do sleep 2; done && mysql -u root -ppassword userdb < /docker-entrypoint-initdb.d/mysql-users-init.sql"
+              ]
+            }
+          }
+        },
+        "name": "mysql-users",
+        "ports": [
+          {
+            "containerPort": 3306,
+            "protocol": "TCP"
+          }
+        ],
+        "resources": {},
+        "terminationMessagePath": "/dev/termination-log",
+        "terminationMessagePolicy": "File",
+        "volumeMounts": [
+          {
+            "mountPath": "/var/lib/mysql",
+            "name": "mysql-data-users"
+          },
+          {
+            "mountPath": "/docker-entrypoint-initdb.d",
+            "name": "mysql-users-init"
+          },
+          {
+            "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+            "name": "kube-api-access-m9r4t",
+            "readOnly": true
+          }
+        ]
+      }
+    ],
+    "dnsPolicy": "ClusterFirst",
+    "enableServiceLinks": true,
+    "nodeName": "kworker02.lab.local",
+    "preemptionPolicy": "PreemptLowerPriority",
+    "priority": 0,
+    "restartPolicy": "Always",
+    "schedulerName": "default-scheduler",
+    "securityContext": {},
+    "serviceAccount": "default",
+    "serviceAccountName": "default",
+    "terminationGracePeriodSeconds": 30,
+    "tolerations": [
+      {
+        "effect": "NoExecute",
+        "key": "node.kubernetes.io/not-ready",
+        "operator": "Exists",
+        "tolerationSeconds": 300
+      },
+      {
+        "effect": "NoExecute",
+        "key": "node.kubernetes.io/unreachable",
+        "operator": "Exists",
+        "tolerationSeconds": 300
+      }
+    ],
+    "volumes": [
+      {
+        "name": "mysql-data-users",
+        "persistentVolumeClaim": {
+          "claimName": "mysql-users-pvc"
+        }
+      },
+      {
+        "configMap": {
+          "defaultMode": 420,
+          "items": [
+            {
+              "key": "mysql-users-init.sql",
+              "path": "mysql-users-init.sql"
+            }
+          ],
+          "name": "mysql-users-init-config"
+        },
+        "name": "mysql-users-init"
+      },
+      {
+        "name": "kube-api-access-m9r4t",
+        "projected": {
+          "defaultMode": 420,
+          "sources": [
+            {
+              "serviceAccountToken": {
+                "expirationSeconds": 3607,
+                "path": "token"
+              }
+            },
+            {
+              "configMap": {
+                "items": [
+                  {
+                    "key": "ca.crt",
+                    "path": "ca.crt"
+                  }
+                ],
+                "name": "kube-root-ca.crt"
+              }
+            },
+            {
+              "downwardAPI": {
+                "items": [
+                  {
+                    "fieldRef": {
+                      "apiVersion": "v1",
+                      "fieldPath": "metadata.namespace"
+                    },
+                    "path": "namespace"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "status": {
+    "conditions": [
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2024-11-28T08:23:53Z",
+        "status": "True",
+        "type": "PodReadyToStartContainers"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2024-11-28T08:23:46Z",
+        "status": "True",
+        "type": "Initialized"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2024-11-28T08:23:53Z",
+        "status": "True",
+        "type": "Ready"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2024-11-28T08:23:53Z",
+        "status": "True",
+        "type": "ContainersReady"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2024-11-28T08:23:46Z",
+        "status": "True",
+        "type": "PodScheduled"
+      }
+    ],
+    "containerStatuses": [
+      {
+        "containerID": "containerd://c553d51a569f04138de6dfcb0696cb936dff70f0ddd1593dd662316c53b81fc5",
+        "image": "docker.io/library/mysql:8.0",
+        "imageID": "docker.io/library/mysql@sha256:d58ac93387f644e4e040c636b8f50494e78e5afc27ca0a87348b2f577da2b7ff",
+        "lastState": {},
+        "name": "mysql-users",
+        "ready": true,
+        "restartCount": 0,
+        "started": true,
+        "state": {
+          "running": {
+            "startedAt": "2024-11-28T08:23:47Z"
+          }
+        },
+        "volumeMounts": [
+          {
+            "mountPath": "/var/lib/mysql",
+            "name": "mysql-data-users"
+          },
+          {
+            "mountPath": "/docker-entrypoint-initdb.d",
+            "name": "mysql-users-init"
+          },
+          {
+            "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+            "name": "kube-api-access-m9r4t",
+            "readOnly": true,
+            "recursiveReadOnly": "Disabled"
+          }
+        ]
+      }
+    ],
+    "hostIP": "172.16.1.205",
+    "hostIPs": [
+      {
+        "ip": "172.16.1.205"
+      }
+    ],
+    "phase": "Running",
+    "podIP": "192.168.142.215",
+    "podIPs": [
+      {
+        "ip": "192.168.142.215"
+      }
+    ],
+    "qosClass": "BestEffort",
+    "startTime": "2024-11-28T08:23:46Z"
+  }
+}

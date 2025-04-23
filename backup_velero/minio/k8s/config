@@ -1,0 +1,5 @@
+kubectl delete statefulset minio -n minio
+
+kubectl label node kmaster01.lab.local role=minio
+kubectl label node kmaster02.lab.local role=minio
+kubectl label node kmaster03.lab.local role=minio

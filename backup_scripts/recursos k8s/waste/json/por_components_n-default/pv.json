@@ -1,0 +1,150 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolume",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"PersistentVolume\",\"metadata\":{\"annotations\":{},\"labels\":{\"type\":\"local\"},\"name\":\"mongo-pv-volume\"},\"spec\":{\"accessModes\":[\"ReadWriteOnce\"],\"capacity\":{\"storage\":\"1Gi\"},\"hostPath\":{\"path\":\"/mnt/mongo\"},\"storageClassName\":\"manual-mongo\"}}\n",
+                    "pv.kubernetes.io/bound-by-controller": "yes"
+                },
+                "creationTimestamp": "2024-11-27T10:00:39Z",
+                "finalizers": [
+                    "kubernetes.io/pv-protection"
+                ],
+                "labels": {
+                    "type": "local"
+                },
+                "name": "mongo-pv-volume",
+                "resourceVersion": "1389776",
+                "uid": "0608cf32-2f03-43a0-af2d-417fe762e7be"
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "capacity": {
+                    "storage": "1Gi"
+                },
+                "claimRef": {
+                    "apiVersion": "v1",
+                    "kind": "PersistentVolumeClaim",
+                    "name": "mongo-pvc",
+                    "namespace": "default",
+                    "resourceVersion": "1389773",
+                    "uid": "5418a905-effa-45e7-b84b-4028209cf694"
+                },
+                "hostPath": {
+                    "path": "/mnt/mongo",
+                    "type": ""
+                },
+                "persistentVolumeReclaimPolicy": "Retain",
+                "storageClassName": "manual-mongo",
+                "volumeMode": "Filesystem"
+            },
+            "status": {
+                "lastPhaseTransitionTime": "2024-11-28T08:23:45Z",
+                "phase": "Bound"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolume",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"PersistentVolume\",\"metadata\":{\"annotations\":{},\"labels\":{\"type\":\"local\"},\"name\":\"mysql-finance-pv-volume\"},\"spec\":{\"accessModes\":[\"ReadWriteOnce\"],\"capacity\":{\"storage\":\"1Gi\"},\"hostPath\":{\"path\":\"/mnt/data/mysql-finance\"},\"persistentVolumeReclaimPolicy\":\"Retain\",\"storageClassName\":\"manual-finances\"}}\n",
+                    "pv.kubernetes.io/bound-by-controller": "yes"
+                },
+                "creationTimestamp": "2024-11-27T10:00:39Z",
+                "finalizers": [
+                    "kubernetes.io/pv-protection"
+                ],
+                "labels": {
+                    "type": "local"
+                },
+                "name": "mysql-finance-pv-volume",
+                "resourceVersion": "1389782",
+                "uid": "bacdaf11-c8aa-49f8-acce-80cffc44c6dd"
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "capacity": {
+                    "storage": "1Gi"
+                },
+                "claimRef": {
+                    "apiVersion": "v1",
+                    "kind": "PersistentVolumeClaim",
+                    "name": "mysql-finances-pvc",
+                    "namespace": "default",
+                    "resourceVersion": "1389779",
+                    "uid": "035843fe-f0eb-4036-8d87-d6e250acc664"
+                },
+                "hostPath": {
+                    "path": "/mnt/data/mysql-finance",
+                    "type": ""
+                },
+                "persistentVolumeReclaimPolicy": "Retain",
+                "storageClassName": "manual-finances",
+                "volumeMode": "Filesystem"
+            },
+            "status": {
+                "lastPhaseTransitionTime": "2024-11-28T08:23:45Z",
+                "phase": "Bound"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolume",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"PersistentVolume\",\"metadata\":{\"annotations\":{},\"labels\":{\"type\":\"local\"},\"name\":\"mysql-users-pv-volume\"},\"spec\":{\"accessModes\":[\"ReadWriteOnce\"],\"capacity\":{\"storage\":\"1Gi\"},\"hostPath\":{\"path\":\"/mnt/mysql-users\"},\"persistentVolumeReclaimPolicy\":\"Retain\",\"storageClassName\":\"manual-users\"}}\n",
+                    "pv.kubernetes.io/bound-by-controller": "yes"
+                },
+                "creationTimestamp": "2024-11-27T10:00:39Z",
+                "finalizers": [
+                    "kubernetes.io/pv-protection"
+                ],
+                "labels": {
+                    "type": "local"
+                },
+                "name": "mysql-users-pv-volume",
+                "resourceVersion": "1389786",
+                "uid": "3eb10bb0-7793-4b04-887c-c95645089491"
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "capacity": {
+                    "storage": "1Gi"
+                },
+                "claimRef": {
+                    "apiVersion": "v1",
+                    "kind": "PersistentVolumeClaim",
+                    "name": "mysql-users-pvc",
+                    "namespace": "default",
+                    "resourceVersion": "1389781",
+                    "uid": "34bd86ea-9916-463b-9f0d-d82453ea3548"
+                },
+                "hostPath": {
+                    "path": "/mnt/mysql-users",
+                    "type": ""
+                },
+                "persistentVolumeReclaimPolicy": "Retain",
+                "storageClassName": "manual-users",
+                "volumeMode": "Filesystem"
+            },
+            "status": {
+                "lastPhaseTransitionTime": "2024-11-28T08:23:45Z",
+                "phase": "Bound"
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

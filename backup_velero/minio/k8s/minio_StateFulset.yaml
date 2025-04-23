@@ -1,0 +1,198 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: minio
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: minio-pv-0
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  hostPath:
+    path: "/mnt/data/minio-0" # Cambia esta ruta por una válida en tu nodo
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: minio-pv-1
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  hostPath:
+    path: "/mnt/data/minio-1" # Cambia esta ruta por una válida en tu nodo
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: minio-pv-2
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  hostPath:
+    path: "/mnt/data/minio-2" # Cambia esta ruta por una válida en tu nodo
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: minio
+  namespace: minio
+spec:
+  serviceName: "minio-service"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: minio
+  template:
+    metadata:
+      labels:
+        app: minio
+    spec:
+      nodeSelector:
+        # role: control-plane
+        role: minio
+      tolerations:
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Exists"
+          effect: "NoSchedule"
+      containers:
+        - name: minio
+          image: minio/minio:latest
+          args:
+            - server
+            - --console-address
+            - ":9001"
+            - http://minio-0.minio.minio.svc.cluster.local/data
+            - http://minio-1.minio.minio.svc.cluster.local/data
+            - http://minio-2.minio.minio.svc.cluster.local/data
+            # - server
+            # - --console-address
+            # - ":9001"
+            # - http://minio-0.minio-service-0.minio.svc.cluster.local/data
+            # - http://minio-1.minio-service-1.minio.svc.cluster.local/data
+            # - http://minio-2.minio-service-2.minio.svc.cluster.local/data
+          # args:
+          #   - minio server /data --console-address :9001
+          #   - server
+          #   - http://minio-0.minio-service-0.minio.svc.cluster.local/data
+          #   - http://minio-1.minio-service-1.minio.svc.cluster.local/data
+          #   - http://minio-2.minio-service-2.minio.svc.cluster.local/data
+          ports:
+            - name: http
+              containerPort: 9000
+            - name: console
+              containerPort: 9001 # Consola de administración
+          env:
+            - name: MINIO_ROOT_USER
+              value: "minio"
+            - name: MINIO_ROOT_PASSWORD
+              value: "minio123"
+          volumeMounts:
+            - name: minio-data
+              mountPath: /data
+  volumeClaimTemplates:
+    - metadata:
+        name: minio-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 10Gi
+        storageClassName: local-storage
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio-service
+  namespace: minio
+spec:
+  clusterIP: None
+  selector:
+    app: minio
+  ports:
+    - name: http
+      port: 9000
+      targetPort: 9000
+    - name: console
+      port: 9001
+      targetPort: 9001
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio-service-0
+  namespace: minio
+spec:
+  type: NodePort
+  selector:
+    app: minio
+  ports:
+    - name: http
+      port: 9000
+      targetPort: 9000
+      nodePort: 30000
+    - name: console
+      port: 9001
+      targetPort: 9001
+      nodePort: 30001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio-service-1
+  namespace: minio
+spec:
+  type: NodePort
+  selector:
+    app: minio
+  ports:
+    - name: http
+      port: 9000
+      targetPort: 9000
+      nodePort: 30002
+    - name: console
+      port: 9001
+      targetPort: 9001
+      nodePort: 30003
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio-service-2
+  namespace: minio
+spec:
+  type: NodePort
+  selector:
+    app: minio
+  ports:
+    - name: http
+      port: 9000
+      targetPort: 9000
+      nodePort: 30004
+    - name: console
+      port: 9001
+      targetPort: 9001
+      nodePort: 30005

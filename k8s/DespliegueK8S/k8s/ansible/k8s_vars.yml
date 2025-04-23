@@ -1,0 +1,26 @@
+admin_pkges:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gpg
+
+kube_repo_content:
+  ubuntu: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.31/deb/ /"
+
+docker_repo_content:
+  # ubuntu24
+  # ubuntu24:  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu" 
+  #  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" 
+  ubuntu24: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu noble stable"
+
+pkges:
+  - kubelet
+  - kubeadm
+  - kubectl
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-buildx-plugin
+  - docker-compose-plugin
+
+

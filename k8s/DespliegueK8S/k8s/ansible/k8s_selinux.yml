@@ -1,0 +1,32 @@
+#First steps for Kubernetes cluster deployment
+---
+- name: Set admin environment
+  hosts: k8instances
+  become: true
+  become_method: sudo
+  become_user: root
+  vars_files:
+    - k8s_vars.yml
+  tasks:
+    - name: Ensure libselinux-python is installed on Debian/Ubuntu
+      package:
+        name: python3-selinux
+        state: present
+
+    - name: Ensure libselinux-python is installed on Debian/Ubuntu
+      package:
+        name: selinux-policy-default
+        state: present
+
+    - name: Set SELinux to permissive
+      selinux:
+        policy: targeted
+        state: permissive
+  
+    - name: Modify SELinux config file
+      lineinfile:
+        path: /etc/selinux/config 
+        regex: "SELINUX=enforcing"
+        state: present
+        line: "SELINUX=permissive"
+ 

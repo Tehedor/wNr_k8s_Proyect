@@ -1,0 +1,77 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "v1",
+            "data": {
+                "ca.crt": "-----BEGIN CERTIFICATE-----\nMIIDBTCCAe2gAwIBAgIIInTFsCBgZHgwDQYJKoZIhvcNAQELBQAwFTETMBEGA1UE\nAxMKa3ViZXJuZXRlczAeFw0yNDExMTMxMDExMTlaFw0zNDExMTExMDE2MTlaMBUx\nEzARBgNVBAMTCmt1YmVybmV0ZXMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK\nAoIBAQCzDoO1w9ahHwYxsK3IVJ5SilhmhxNa6J68anR9EaXwFeGwWyWd0ZFji6uz\nFB9QLQwVRxubnuQnHh4UUt0Imdw1areediVQRb12WzWApM2jz18FTgOHHSXkS8cL\nONkzp4SbRJqBu5/d9M0BmzrCM11ExtqakrjTWB32dApH+xHgaG8IWUoJ5EbozMbf\ndm/ceLira+O0XtaD3tmiBcCeroVaAksqQK5EnCoS7GOdMTE4kSN/fv1YseoV0V26\nbRwGEch0wSwcRHKfG7Hn0w2iUZAA0G+wX3bLXg019AETQseNh7xsKmhqya3LyYw5\npCltqVtlZMfWZhraW6/YjOM59QdRAgMBAAGjWTBXMA4GA1UdDwEB/wQEAwICpDAP\nBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBQjVwynZS2yZN8O/1nBkSC/Z9RREDAV\nBgNVHREEDjAMggprdWJlcm5ldGVzMA0GCSqGSIb3DQEBCwUAA4IBAQB/EflPP3jo\nloV7xRdAWBmHPRm4Y0FqUrC3dhK3njRFX+xOre37G52PIDmoto1nHbwcX+uAlc6B\nyPxVEQlD/nKq26m7vGKvXX0fp8uexBHO5IULuFnAelo4FcKDC50Ag49JhZdJzM1a\n//sIqmmGX2d2Ioo2qKQBg9DGJgsxC4tQrTE/8+PhJXo4PD723VZgjsK7K9/O92KI\n7Kgoifg4MfKatbpRol6cxs/RffC5eYRTFSPpkgAPHfi4NcDuU6YfDbqa2yqlEB2p\nVvjjhi8LHNASA38rwCN7dmfYUhF9nuE3x4fnX+ntZgVgWuofdXGkxZjWbcHpupN3\nuoWNIPPYTrVF\n-----END CERTIFICATE-----\n"
+            },
+            "kind": "ConfigMap",
+            "metadata": {
+                "annotations": {
+                    "kubernetes.io/description": "Contains a CA bundle that can be used to verify the kube-apiserver when using internal endpoints such as the internal service IP or kubernetes.default.svc. No other usage is guaranteed across distributions of Kubernetes clusters."
+                },
+                "creationTimestamp": "2024-11-13T10:17:28Z",
+                "name": "kube-root-ca.crt",
+                "namespace": "default",
+                "resourceVersion": "375",
+                "uid": "59da60d5-8880-433d-8929-fbc74b7a13bc"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "data": {
+                "mongo-init.js": "// Archivo para inicializar MongoDB con datos predefinidos.\ndb = db.getSiblingDB('financedb');\n\ndb.createCollection('finances');\n\ndb.finances.insertMany([\n    { date: \"2024-01-01\", revenue: 5000, expense: 3000 },\n    { date: \"2024-02-01\", revenue: 6000, expense: 4000 },\n    { date: \"2024-03-01\", revenue: 7000, expense: 4500 },\n    { date: \"2024-04-01\", revenue: 8000, expense: 5000 }\n]);\n\nprint(\"Datos iniciales insertados en MongoDB\");\n"
+            },
+            "kind": "ConfigMap",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"data\":{\"mongo-init.js\":\"// Archivo para inicializar MongoDB con datos predefinidos.\\ndb = db.getSiblingDB('financedb');\\n\\ndb.createCollection('finances');\\n\\ndb.finances.insertMany([\\n    { date: \\\"2024-01-01\\\", revenue: 5000, expense: 3000 },\\n    { date: \\\"2024-02-01\\\", revenue: 6000, expense: 4000 },\\n    { date: \\\"2024-03-01\\\", revenue: 7000, expense: 4500 },\\n    { date: \\\"2024-04-01\\\", revenue: 8000, expense: 5000 }\\n]);\\n\\nprint(\\\"Datos iniciales insertados en MongoDB\\\");\\n\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"name\":\"mongo-init-config\",\"namespace\":\"default\"}}\n"
+                },
+                "creationTimestamp": "2024-11-28T08:23:44Z",
+                "name": "mongo-init-config",
+                "namespace": "default",
+                "resourceVersion": "1389769",
+                "uid": "edb9f097-788b-47c3-8744-99b3161bccc2"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "data": {
+                "mysql-finances-init.sql": "-- Crear base de datos si no existe\nCREATE DATABASE IF NOT EXISTS financedb;\n\n-- Usar la base de datos creada\nUSE financedb;\n\n-- Crear tabla 'finances'\nCREATE TABLE IF NOT EXISTS finances (\n    id INT AUTO_INCREMENT PRIMARY KEY,\n    date DATE NOT NULL,\n    revenue DECIMAL(10, 2) NOT NULL,\n    expense DECIMAL(10, 2) NOT NULL\n);\n\n-- Insertar datos iniciales solo si la tabla 'finances' fue creada\n    INSERT INTO finances (date, revenue, expense)\n    SELECT '2024-01-01', 5000.00, 3000.00\n    WHERE NOT EXISTS (SELECT 1 FROM finances LIMIT 1);\n    INSERT INTO finances (date, revenue, expense)\n    SELECT '2024-02-01', 6000.00, 4000.00\n    WHERE NOT EXISTS (SELECT 1 FROM finances LIMIT 1);\n    INSERT INTO finances (date, revenue, expense)\n    SELECT '2024-03-01', 7000.00, 4500.00\n    WHERE NOT EXISTS (SELECT 1 FROM finances LIMIT 1);\n    INSERT INTO finances (date, revenue, expense)\n    SELECT '2024-04-01', 8000.00, 5000.00\n    WHERE NOT EXISTS (SELECT 1 FROM finances LIMIT 1);\n"
+            },
+            "kind": "ConfigMap",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"data\":{\"mysql-finances-init.sql\":\"-- Crear base de datos si no existe\\nCREATE DATABASE IF NOT EXISTS financedb;\\n\\n-- Usar la base de datos creada\\nUSE financedb;\\n\\n-- Crear tabla 'finances'\\nCREATE TABLE IF NOT EXISTS finances (\\n    id INT AUTO_INCREMENT PRIMARY KEY,\\n    date DATE NOT NULL,\\n    revenue DECIMAL(10, 2) NOT NULL,\\n    expense DECIMAL(10, 2) NOT NULL\\n);\\n\\n-- Insertar datos iniciales solo si la tabla 'finances' fue creada\\n    INSERT INTO finances (date, revenue, expense)\\n    SELECT '2024-01-01', 5000.00, 3000.00\\n    WHERE NOT EXISTS (SELECT 1 FROM finances LIMIT 1);\\n    INSERT INTO finances (date, revenue, expense)\\n    SELECT '2024-02-01', 6000.00, 4000.00\\n    WHERE NOT EXISTS (SELECT 1 FROM finances LIMIT 1);\\n    INSERT INTO finances (date, revenue, expense)\\n    SELECT '2024-03-01', 7000.00, 4500.00\\n    WHERE NOT EXISTS (SELECT 1 FROM finances LIMIT 1);\\n    INSERT INTO finances (date, revenue, expense)\\n    SELECT '2024-04-01', 8000.00, 5000.00\\n    WHERE NOT EXISTS (SELECT 1 FROM finances LIMIT 1);\\n\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"name\":\"mysql-finances-init-config\",\"namespace\":\"default\"}}\n"
+                },
+                "creationTimestamp": "2024-11-28T08:23:45Z",
+                "name": "mysql-finances-init-config",
+                "namespace": "default",
+                "resourceVersion": "1389771",
+                "uid": "6dc4ab32-94b6-48e7-85cc-0b9b366e18fe"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "data": {
+                "mysql-users-init.sql": "-- Crear base de datos para usuarios si no existe\nCREATE DATABASE IF NOT EXISTS userdb;\n\n-- Usar la base de datos de usuarios\nUSE userdb;\n\n-- Crear tabla 'users'\nCREATE TABLE IF NOT EXISTS users (\n    id INT AUTO_INCREMENT PRIMARY KEY,\n    username VARCHAR(50) NOT NULL UNIQUE,\n    password VARCHAR(255) NOT NULL,\n    email VARCHAR(100) NOT NULL UNIQUE,\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);\n\n# -- Insertar datos iniciales (usuarios de ejemplo)\n# INSERT INTO users (username, password, email) VALUES\n# ('admin', 'admin_password_hash', 'admin@example.com'),\n# ('user1', 'user1_password_hash', 'user1@example.com');\n"
+            },
+            "kind": "ConfigMap",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"data\":{\"mysql-users-init.sql\":\"-- Crear base de datos para usuarios si no existe\\nCREATE DATABASE IF NOT EXISTS userdb;\\n\\n-- Usar la base de datos de usuarios\\nUSE userdb;\\n\\n-- Crear tabla 'users'\\nCREATE TABLE IF NOT EXISTS users (\\n    id INT AUTO_INCREMENT PRIMARY KEY,\\n    username VARCHAR(50) NOT NULL UNIQUE,\\n    password VARCHAR(255) NOT NULL,\\n    email VARCHAR(100) NOT NULL UNIQUE,\\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\\n);\\n\\n# -- Insertar datos iniciales (usuarios de ejemplo)\\n# INSERT INTO users (username, password, email) VALUES\\n# ('admin', 'admin_password_hash', 'admin@example.com'),\\n# ('user1', 'user1_password_hash', 'user1@example.com');\\n\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"name\":\"mysql-users-init-config\",\"namespace\":\"default\"}}\n"
+                },
+                "creationTimestamp": "2024-11-28T08:23:45Z",
+                "name": "mysql-users-init-config",
+                "namespace": "default",
+                "resourceVersion": "1389772",
+                "uid": "a6add396-3ddd-4f46-8229-0b03dee5f9da"
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

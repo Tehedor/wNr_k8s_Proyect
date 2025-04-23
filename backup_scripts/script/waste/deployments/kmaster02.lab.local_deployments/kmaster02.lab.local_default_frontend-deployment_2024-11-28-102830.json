@@ -1,0 +1,92 @@
+{
+  "apiVersion": "apps/v1",
+  "kind": "Deployment",
+  "metadata": {
+    "annotations": {
+      "deployment.kubernetes.io/revision": "1",
+      "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"frontend-deployment\"},\"name\":\"frontend-deployment\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app\":\"frontend-deployment\"}},\"template\":{\"metadata\":{\"labels\":{\"app\":\"frontend-deployment\"}},\"spec\":{\"containers\":[{\"image\":\"stehedor/finance-frontend-image\",\"name\":\"frontend-deployment\",\"ports\":[{\"containerPort\":80}]}]}}}}\n"
+    },
+    "creationTimestamp": "2024-11-28T08:23:46Z",
+    "generation": 1,
+    "labels": {
+      "app": "frontend-deployment"
+    },
+    "name": "frontend-deployment",
+    "namespace": "default",
+    "resourceVersion": "1389947",
+    "uid": "31a71913-f47a-44e0-b20d-0f2ffcdd12b8"
+  },
+  "spec": {
+    "progressDeadlineSeconds": 600,
+    "replicas": 1,
+    "revisionHistoryLimit": 10,
+    "selector": {
+      "matchLabels": {
+        "app": "frontend-deployment"
+      }
+    },
+    "strategy": {
+      "rollingUpdate": {
+        "maxSurge": "25%",
+        "maxUnavailable": "25%"
+      },
+      "type": "RollingUpdate"
+    },
+    "template": {
+      "metadata": {
+        "creationTimestamp": null,
+        "labels": {
+          "app": "frontend-deployment"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "stehedor/finance-frontend-image",
+            "imagePullPolicy": "Always",
+            "name": "frontend-deployment",
+            "ports": [
+              {
+                "containerPort": 80,
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File"
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "terminationGracePeriodSeconds": 30
+      }
+    }
+  },
+  "status": {
+    "availableReplicas": 1,
+    "conditions": [
+      {
+        "lastTransitionTime": "2024-11-28T08:23:53Z",
+        "lastUpdateTime": "2024-11-28T08:23:53Z",
+        "message": "Deployment has minimum availability.",
+        "reason": "MinimumReplicasAvailable",
+        "status": "True",
+        "type": "Available"
+      },
+      {
+        "lastTransitionTime": "2024-11-28T08:23:46Z",
+        "lastUpdateTime": "2024-11-28T08:23:53Z",
+        "message": "ReplicaSet \"frontend-deployment-7bb4fc6874\" has successfully progressed.",
+        "reason": "NewReplicaSetAvailable",
+        "status": "True",
+        "type": "Progressing"
+      }
+    ],
+    "observedGeneration": 1,
+    "readyReplicas": 1,
+    "replicas": 1,
+    "updatedReplicas": 1
+  }
+}

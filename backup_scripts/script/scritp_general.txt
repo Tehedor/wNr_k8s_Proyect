@@ -1,0 +1,6 @@
+
+Sacar los pods de un namespace en un nodo
+    kubectl get pods -n <nombre_del_namespace> --field-selector spec.nodeName=<nombre_del_nodo>
+
+Sacar todas las caracterisitcas de un pod
+    kubectl describe pod <pod_name> -n <nombre_del_namespace>

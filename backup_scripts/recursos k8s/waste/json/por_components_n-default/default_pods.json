@@ -1,0 +1,1450 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "cni.projectcalico.org/containerID": "7bd20ad142f03b76bebbc73357eab7ddcaccf2a5f4b21f8ded001412085c8b89",
+                    "cni.projectcalico.org/podIP": "192.168.142.239/32",
+                    "cni.projectcalico.org/podIPs": "192.168.142.239/32"
+                },
+                "creationTimestamp": "2024-11-28T08:23:46Z",
+                "generateName": "backend-deployment-5dbb6ddd9d-",
+                "labels": {
+                    "app": "backend",
+                    "pod-template-hash": "5dbb6ddd9d"
+                },
+                "name": "backend-deployment-5dbb6ddd9d-8h6rl",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "backend-deployment-5dbb6ddd9d",
+                        "uid": "f94f3549-eaa2-419b-9b7a-689280367c98"
+                    }
+                ],
+                "resourceVersion": "3096989",
+                "uid": "099a71a5-1871-4185-ab79-c5da74118428"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "MONGO_URI",
+                                "value": "mongodb://mongodb-service:27017/"
+                            },
+                            {
+                                "name": "MYSQL_HOST",
+                                "value": "mysql-finances"
+                            },
+                            {
+                                "name": "MYSQL_USER",
+                                "value": "root"
+                            },
+                            {
+                                "name": "MYSQL_PASSWORD",
+                                "value": "password"
+                            },
+                            {
+                                "name": "MYSQL_DATABASE",
+                                "value": "financedb"
+                            },
+                            {
+                                "name": "MYSQL_USERDB_HOST",
+                                "value": "mysql-users"
+                            },
+                            {
+                                "name": "MYSQL_USERDB_USER",
+                                "value": "root"
+                            },
+                            {
+                                "name": "MYSQL_USERDB_PASSWORD",
+                                "value": "password"
+                            },
+                            {
+                                "name": "MYSQL_USERDB_DATABASE",
+                                "value": "userdb"
+                            }
+                        ],
+                        "image": "stehedor/finance-backend-image",
+                        "imagePullPolicy": "Always",
+                        "name": "backend",
+                        "ports": [
+                            {
+                                "containerPort": 5000,
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "resources": {},
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-vldhh",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "kworker02.lab.local",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "kube-api-access-vldhh",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-12-16T09:18:56Z",
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-11-28T08:23:46Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-12-16T09:18:56Z",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-12-16T09:18:56Z",
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-11-28T08:23:46Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "containerd://41e85e7fcf0bd91e2e9db062167d9102f977a6e17a2e8a0a18f823371f85dd4f",
+                        "image": "docker.io/stehedor/finance-backend-image:latest",
+                        "imageID": "docker.io/stehedor/finance-backend-image@sha256:8b6c3555df09ea6951f2f82c7830ebbc6a2db1aceedd341cdbc5411c65078dda",
+                        "lastState": {
+                            "terminated": {
+                                "containerID": "containerd://4d94c54aa822a2bece492a4a097e47be4bd21f0498d07f087168205c28bf1fed",
+                                "exitCode": 255,
+                                "finishedAt": "2024-12-16T09:10:56Z",
+                                "reason": "Unknown",
+                                "startedAt": "2024-12-10T08:50:05Z"
+                            }
+                        },
+                        "name": "backend",
+                        "ready": true,
+                        "restartCount": 5,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2024-12-16T09:18:56Z"
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-vldhh",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "172.16.1.205",
+                "hostIPs": [
+                    {
+                        "ip": "172.16.1.205"
+                    }
+                ],
+                "phase": "Running",
+                "podIP": "192.168.142.239",
+                "podIPs": [
+                    {
+                        "ip": "192.168.142.239"
+                    }
+                ],
+                "qosClass": "BestEffort",
+                "startTime": "2024-11-28T08:23:46Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "cni.projectcalico.org/containerID": "a5d35235dafb52e2ce75ccef88a888519006bc3f773156425b1e8d875292c2d4",
+                    "cni.projectcalico.org/podIP": "192.168.138.117/32",
+                    "cni.projectcalico.org/podIPs": "192.168.138.117/32"
+                },
+                "creationTimestamp": "2024-12-10T09:34:54Z",
+                "generateName": "backend-deployment-5dbb6ddd9d-",
+                "labels": {
+                    "app": "backend",
+                    "pod-template-hash": "5dbb6ddd9d"
+                },
+                "name": "backend-deployment-5dbb6ddd9d-dr2w5",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "backend-deployment-5dbb6ddd9d",
+                        "uid": "f94f3549-eaa2-419b-9b7a-689280367c98"
+                    }
+                ],
+                "resourceVersion": "3096731",
+                "uid": "396847bb-aed3-43cf-a08b-c20cf2ec0f62"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "MONGO_URI",
+                                "value": "mongodb://mongodb-service:27017/"
+                            },
+                            {
+                                "name": "MYSQL_HOST",
+                                "value": "mysql-finances"
+                            },
+                            {
+                                "name": "MYSQL_USER",
+                                "value": "root"
+                            },
+                            {
+                                "name": "MYSQL_PASSWORD",
+                                "value": "password"
+                            },
+                            {
+                                "name": "MYSQL_DATABASE",
+                                "value": "financedb"
+                            },
+                            {
+                                "name": "MYSQL_USERDB_HOST",
+                                "value": "mysql-users"
+                            },
+                            {
+                                "name": "MYSQL_USERDB_USER",
+                                "value": "root"
+                            },
+                            {
+                                "name": "MYSQL_USERDB_PASSWORD",
+                                "value": "password"
+                            },
+                            {
+                                "name": "MYSQL_USERDB_DATABASE",
+                                "value": "userdb"
+                            }
+                        ],
+                        "image": "stehedor/finance-backend-image",
+                        "imagePullPolicy": "Always",
+                        "name": "backend",
+                        "ports": [
+                            {
+                                "containerPort": 5000,
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "resources": {},
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-hzjfg",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "kworker01.lab.local",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "kube-api-access-hzjfg",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-12-16T09:18:17Z",
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-12-10T09:34:54Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-12-16T09:18:17Z",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-12-16T09:18:17Z",
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-12-10T09:34:54Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "containerd://557a032f80fb5a2495ae6b50fa966cda29bf51872551ce46bf4cc2a5d2600d7a",
+                        "image": "docker.io/stehedor/finance-backend-image:latest",
+                        "imageID": "docker.io/stehedor/finance-backend-image@sha256:8b6c3555df09ea6951f2f82c7830ebbc6a2db1aceedd341cdbc5411c65078dda",
+                        "lastState": {
+                            "terminated": {
+                                "containerID": "containerd://d3a1d066499819b6a7f3a2c4a9f31a615f7b656073d80fcca705321604d02678",
+                                "exitCode": 255,
+                                "finishedAt": "2024-12-16T09:10:50Z",
+                                "reason": "Unknown",
+                                "startedAt": "2024-12-10T09:34:55Z"
+                            }
+                        },
+                        "name": "backend",
+                        "ready": true,
+                        "restartCount": 1,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2024-12-16T09:18:17Z"
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-hzjfg",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "172.16.1.204",
+                "hostIPs": [
+                    {
+                        "ip": "172.16.1.204"
+                    }
+                ],
+                "phase": "Running",
+                "podIP": "192.168.138.117",
+                "podIPs": [
+                    {
+                        "ip": "192.168.138.117"
+                    }
+                ],
+                "qosClass": "BestEffort",
+                "startTime": "2024-12-10T09:34:54Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "cni.projectcalico.org/containerID": "0b2ebedbc9fc66845fced035dfe204e397c6521d71101866a3b2a5660ed143f9",
+                    "cni.projectcalico.org/podIP": "192.168.142.242/32",
+                    "cni.projectcalico.org/podIPs": "192.168.142.242/32"
+                },
+                "creationTimestamp": "2024-11-28T08:23:46Z",
+                "generateName": "frontend-deployment-7bb4fc6874-",
+                "labels": {
+                    "app": "frontend-deployment",
+                    "pod-template-hash": "7bb4fc6874"
+                },
+                "name": "frontend-deployment-7bb4fc6874-qx5sg",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "frontend-deployment-7bb4fc6874",
+                        "uid": "66909bdd-ed0c-4bc7-bc2a-52da79952db6"
+                    }
+                ],
+                "resourceVersion": "3097014",
+                "uid": "fe1ca3fe-3372-4651-87f3-3e308862e4bc"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "image": "stehedor/finance-frontend-image",
+                        "imagePullPolicy": "Always",
+                        "name": "frontend-deployment",
+                        "ports": [
+                            {
+                                "containerPort": 80,
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "resources": {},
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-74rw8",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "kworker02.lab.local",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "kube-api-access-74rw8",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-12-16T09:18:57Z",
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-11-28T08:23:46Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-12-16T09:18:57Z",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-12-16T09:18:57Z",
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-11-28T08:23:46Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "containerd://6b471e78d7a46cb75c4b4f352143661440802f8d589f81e32ee54c03cca68117",
+                        "image": "docker.io/stehedor/finance-frontend-image:latest",
+                        "imageID": "docker.io/stehedor/finance-frontend-image@sha256:ccbdff2a2e036d6fabd1f83010cfd246a0725942376273cd08fbc2af8020fb8c",
+                        "lastState": {
+                            "terminated": {
+                                "containerID": "containerd://b82b4318ba87f8272d7e02217a19cf43bdb8f43648da7965769c2c1b969ddf1e",
+                                "exitCode": 255,
+                                "finishedAt": "2024-12-16T09:10:56Z",
+                                "reason": "Unknown",
+                                "startedAt": "2024-12-10T08:50:07Z"
+                            }
+                        },
+                        "name": "frontend-deployment",
+                        "ready": true,
+                        "restartCount": 3,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2024-12-16T09:18:57Z"
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-74rw8",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "172.16.1.205",
+                "hostIPs": [
+                    {
+                        "ip": "172.16.1.205"
+                    }
+                ],
+                "phase": "Running",
+                "podIP": "192.168.142.242",
+                "podIPs": [
+                    {
+                        "ip": "192.168.142.242"
+                    }
+                ],
+                "qosClass": "BestEffort",
+                "startTime": "2024-11-28T08:23:46Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "cni.projectcalico.org/containerID": "514d8bd7e7011bbc3ea82990aa7039d39f290d29aa7da158cab4c16052680e55",
+                    "cni.projectcalico.org/podIP": "192.168.138.71/32",
+                    "cni.projectcalico.org/podIPs": "192.168.138.71/32"
+                },
+                "creationTimestamp": "2024-12-03T11:41:11Z",
+                "generateName": "mongo-deployment-5bcb7cd78b-",
+                "labels": {
+                    "app": "mongo",
+                    "pod-template-hash": "5bcb7cd78b"
+                },
+                "name": "mongo-deployment-5bcb7cd78b-gtjbk",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "mongo-deployment-5bcb7cd78b",
+                        "uid": "ec5e9a91-ed9d-455d-ab28-0ed34953da30"
+                    }
+                ],
+                "resourceVersion": "3096697",
+                "uid": "108dea86-0a34-471f-bf7b-bbf4d40fb8db"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "MONGO_INITDB_DATABASE",
+                                "value": "financedb"
+                            }
+                        ],
+                        "image": "mongo:5.0",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "mongo",
+                        "ports": [
+                            {
+                                "containerPort": 27017,
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "resources": {},
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/data/db",
+                                "name": "mongo-data"
+                            },
+                            {
+                                "mountPath": "/docker-entrypoint-initdb.d/mongo-init.js",
+                                "name": "mongo-init"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-59d4h",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "kworker01.lab.local",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "mongo-data",
+                        "persistentVolumeClaim": {
+                            "claimName": "mongo-pvc"
+                        }
+                    },
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "name": "mongo-init-config"
+                        },
+                        "name": "mongo-init"
+                    },
+                    {
+                        "name": "kube-api-access-59d4h",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-12-16T09:18:15Z",
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-12-03T11:41:11Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-12-16T09:18:15Z",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-12-16T09:18:15Z",
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-12-03T11:41:11Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "containerd://aa427a69a8880d82e13e858e585dbeee07660b7e8273c483d8bd1629d4c9cb5f",
+                        "image": "docker.io/library/mongo:5.0",
+                        "imageID": "docker.io/library/mongo@sha256:e60ff56a306e6d9b6c0bd91800533cbc6863254b5aa510a06e56290d4866cdab",
+                        "lastState": {
+                            "terminated": {
+                                "containerID": "containerd://63c63702be2a2860c098125e1895923f9f37d9281db302f0dc494c0de3981bf8",
+                                "exitCode": 255,
+                                "finishedAt": "2024-12-16T09:10:50Z",
+                                "reason": "Unknown",
+                                "startedAt": "2024-12-10T08:50:06Z"
+                            }
+                        },
+                        "name": "mongo",
+                        "ready": true,
+                        "restartCount": 2,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2024-12-16T09:18:15Z"
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/data/db",
+                                "name": "mongo-data"
+                            },
+                            {
+                                "mountPath": "/docker-entrypoint-initdb.d/mongo-init.js",
+                                "name": "mongo-init"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-59d4h",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "172.16.1.204",
+                "hostIPs": [
+                    {
+                        "ip": "172.16.1.204"
+                    }
+                ],
+                "phase": "Running",
+                "podIP": "192.168.138.71",
+                "podIPs": [
+                    {
+                        "ip": "192.168.138.71"
+                    }
+                ],
+                "qosClass": "BestEffort",
+                "startTime": "2024-12-03T11:41:11Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "cni.projectcalico.org/containerID": "81dfbd51f865a66d2e7a9b988804fc182602f932e09a8077a7ac8c98f2bbe702",
+                    "cni.projectcalico.org/podIP": "192.168.142.244/32",
+                    "cni.projectcalico.org/podIPs": "192.168.142.244/32"
+                },
+                "creationTimestamp": "2024-11-28T08:23:46Z",
+                "generateName": "mysql-finances-deployment-77884f9658-",
+                "labels": {
+                    "app": "mysql-finances",
+                    "pod-template-hash": "77884f9658"
+                },
+                "name": "mysql-finances-deployment-77884f9658-jlmx4",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "mysql-finances-deployment-77884f9658",
+                        "uid": "5549d339-65b6-4984-a06b-a8792221aaa1"
+                    }
+                ],
+                "resourceVersion": "3097035",
+                "uid": "929e09ab-88c6-47b9-a4da-a481b7f1ac5a"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "MYSQL_ROOT_PASSWORD",
+                                "value": "password"
+                            },
+                            {
+                                "name": "MYSQL_DATABASE",
+                                "value": "financedb"
+                            }
+                        ],
+                        "image": "mysql:8.0",
+                        "imagePullPolicy": "IfNotPresent",
+                        "lifecycle": {
+                            "postStart": {
+                                "exec": {
+                                    "command": [
+                                        "sh",
+                                        "-c",
+                                        "while ! mysqladmin ping -h 127.0.0.1 --silent; do sleep 2; done; mysql -u root -ppassword financedb \u003c /docker-entrypoint-initdb.d/mysql-finances-init.sql"
+                                    ]
+                                }
+                            }
+                        },
+                        "name": "mysql-finances",
+                        "ports": [
+                            {
+                                "containerPort": 3306,
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "resources": {},
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/lib/mysql",
+                                "name": "mysql-data-finances"
+                            },
+                            {
+                                "mountPath": "/docker-entrypoint-initdb.d",
+                                "name": "mysql-finances-init"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-xtwpd",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "kworker02.lab.local",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "mysql-data-finances",
+                        "persistentVolumeClaim": {
+                            "claimName": "mysql-finances-pvc"
+                        }
+                    },
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "items": [
+                                {
+                                    "key": "mysql-finances-init.sql",
+                                    "path": "mysql-finances-init.sql"
+                                }
+                            ],
+                            "name": "mysql-finances-init-config"
+                        },
+                        "name": "mysql-finances-init"
+                    },
+                    {
+                        "name": "kube-api-access-xtwpd",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-12-16T09:19:00Z",
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-11-28T08:23:46Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-12-16T09:19:00Z",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-12-16T09:19:00Z",
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-11-28T08:23:46Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "containerd://b7390cb9e54d4737d0d757fa3e7164d381ec81c3b7091dc9796fccd64dfd2624",
+                        "image": "docker.io/library/mysql:8.0",
+                        "imageID": "docker.io/library/mysql@sha256:d58ac93387f644e4e040c636b8f50494e78e5afc27ca0a87348b2f577da2b7ff",
+                        "lastState": {
+                            "terminated": {
+                                "containerID": "containerd://633cfc8c978a1d3e9e3091d775a0f1f1f37673b21662227341f8743687637c59",
+                                "exitCode": 255,
+                                "finishedAt": "2024-12-16T09:10:56Z",
+                                "reason": "Unknown",
+                                "startedAt": "2024-12-10T08:50:10Z"
+                            }
+                        },
+                        "name": "mysql-finances",
+                        "ready": true,
+                        "restartCount": 3,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2024-12-16T09:18:58Z"
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/lib/mysql",
+                                "name": "mysql-data-finances"
+                            },
+                            {
+                                "mountPath": "/docker-entrypoint-initdb.d",
+                                "name": "mysql-finances-init"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-xtwpd",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "172.16.1.205",
+                "hostIPs": [
+                    {
+                        "ip": "172.16.1.205"
+                    }
+                ],
+                "phase": "Running",
+                "podIP": "192.168.142.244",
+                "podIPs": [
+                    {
+                        "ip": "192.168.142.244"
+                    }
+                ],
+                "qosClass": "BestEffort",
+                "startTime": "2024-11-28T08:23:46Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "cni.projectcalico.org/containerID": "9a2549224714ca276e92908ff7d25dc3d550d1224ba6a37a06debb63ff118ed8",
+                    "cni.projectcalico.org/podIP": "192.168.142.240/32",
+                    "cni.projectcalico.org/podIPs": "192.168.142.240/32"
+                },
+                "creationTimestamp": "2024-11-28T08:23:46Z",
+                "generateName": "mysql-users-deployment-b7c4ff976-",
+                "labels": {
+                    "app": "mysql-users",
+                    "pod-template-hash": "b7c4ff976"
+                },
+                "name": "mysql-users-deployment-b7c4ff976-nrcj8",
+                "namespace": "default",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "mysql-users-deployment-b7c4ff976",
+                        "uid": "bb063a04-c850-41ab-ab7a-594eeda391df"
+                    }
+                ],
+                "resourceVersion": "3097048",
+                "uid": "475152e8-2b99-4518-9392-1406198bcfb8"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "MYSQL_ROOT_PASSWORD",
+                                "value": "password"
+                            },
+                            {
+                                "name": "MYSQL_DATABASE",
+                                "value": "userdb"
+                            }
+                        ],
+                        "image": "mysql:8.0",
+                        "imagePullPolicy": "IfNotPresent",
+                        "lifecycle": {
+                            "postStart": {
+                                "exec": {
+                                    "command": [
+                                        "sh",
+                                        "-c",
+                                        "while ! mysqladmin ping -h 127.0.0.1 --silent; do sleep 2; done \u0026\u0026 mysql -u root -ppassword userdb \u003c /docker-entrypoint-initdb.d/mysql-users-init.sql"
+                                    ]
+                                }
+                            }
+                        },
+                        "name": "mysql-users",
+                        "ports": [
+                            {
+                                "containerPort": 3306,
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "resources": {},
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/lib/mysql",
+                                "name": "mysql-data-users"
+                            },
+                            {
+                                "mountPath": "/docker-entrypoint-initdb.d",
+                                "name": "mysql-users-init"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-m9r4t",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "kworker02.lab.local",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "mysql-data-users",
+                        "persistentVolumeClaim": {
+                            "claimName": "mysql-users-pvc"
+                        }
+                    },
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "items": [
+                                {
+                                    "key": "mysql-users-init.sql",
+                                    "path": "mysql-users-init.sql"
+                                }
+                            ],
+                            "name": "mysql-users-init-config"
+                        },
+                        "name": "mysql-users-init"
+                    },
+                    {
+                        "name": "kube-api-access-m9r4t",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-12-16T09:19:01Z",
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-11-28T08:23:46Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-12-16T09:19:01Z",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-12-16T09:19:01Z",
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2024-11-28T08:23:46Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "containerd://ac19308ef50d12b55ca289150e3743a93a76f7a51a269fa445fb7d98c53e7cd7",
+                        "image": "docker.io/library/mysql:8.0",
+                        "imageID": "docker.io/library/mysql@sha256:d58ac93387f644e4e040c636b8f50494e78e5afc27ca0a87348b2f577da2b7ff",
+                        "lastState": {
+                            "terminated": {
+                                "containerID": "containerd://fdd048b3e71624a2464403e318caa496e73bf1fe174d82c3b44e9d3989ed2e50",
+                                "exitCode": 255,
+                                "finishedAt": "2024-12-16T09:10:56Z",
+                                "reason": "Unknown",
+                                "startedAt": "2024-12-10T08:50:07Z"
+                            }
+                        },
+                        "name": "mysql-users",
+                        "ready": true,
+                        "restartCount": 3,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2024-12-16T09:18:56Z"
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/lib/mysql",
+                                "name": "mysql-data-users"
+                            },
+                            {
+                                "mountPath": "/docker-entrypoint-initdb.d",
+                                "name": "mysql-users-init"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-m9r4t",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "172.16.1.205",
+                "hostIPs": [
+                    {
+                        "ip": "172.16.1.205"
+                    }
+                ],
+                "phase": "Running",
+                "podIP": "192.168.142.240",
+                "podIPs": [
+                    {
+                        "ip": "192.168.142.240"
+                    }
+                ],
+                "qosClass": "BestEffort",
+                "startTime": "2024-11-28T08:23:46Z"
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

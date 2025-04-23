@@ -1,0 +1,230 @@
+{
+  "apiVersion": "v1",
+  "kind": "Pod",
+  "metadata": {
+    "annotations": {
+      "cni.projectcalico.org/containerID": "c956fd35f1ceb505518ee9e541f5a504984924e84526fd659903ad7fa1dc76a8",
+      "cni.projectcalico.org/podIP": "192.168.142.212/32",
+      "cni.projectcalico.org/podIPs": "192.168.142.212/32"
+    },
+    "creationTimestamp": "2024-11-28T08:23:46Z",
+    "generateName": "mongo-deployment-5bcb7cd78b-",
+    "labels": {
+      "app": "mongo",
+      "pod-template-hash": "5bcb7cd78b"
+    },
+    "name": "mongo-deployment-5bcb7cd78b-74z6s",
+    "namespace": "default",
+    "ownerReferences": [
+      {
+        "apiVersion": "apps/v1",
+        "blockOwnerDeletion": true,
+        "controller": true,
+        "kind": "ReplicaSet",
+        "name": "mongo-deployment-5bcb7cd78b",
+        "uid": "ec5e9a91-ed9d-455d-ab28-0ed34953da30"
+      }
+    ],
+    "resourceVersion": "1389906",
+    "uid": "8dfefd74-c97a-4014-ae33-8cb09433a567"
+  },
+  "spec": {
+    "containers": [
+      {
+        "env": [
+          {
+            "name": "MONGO_INITDB_DATABASE",
+            "value": "financedb"
+          }
+        ],
+        "image": "mongo:5.0",
+        "imagePullPolicy": "IfNotPresent",
+        "name": "mongo",
+        "ports": [
+          {
+            "containerPort": 27017,
+            "protocol": "TCP"
+          }
+        ],
+        "resources": {},
+        "terminationMessagePath": "/dev/termination-log",
+        "terminationMessagePolicy": "File",
+        "volumeMounts": [
+          {
+            "mountPath": "/data/db",
+            "name": "mongo-data"
+          },
+          {
+            "mountPath": "/docker-entrypoint-initdb.d/mongo-init.js",
+            "name": "mongo-init"
+          },
+          {
+            "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+            "name": "kube-api-access-xczl6",
+            "readOnly": true
+          }
+        ]
+      }
+    ],
+    "dnsPolicy": "ClusterFirst",
+    "enableServiceLinks": true,
+    "nodeName": "kworker02.lab.local",
+    "preemptionPolicy": "PreemptLowerPriority",
+    "priority": 0,
+    "restartPolicy": "Always",
+    "schedulerName": "default-scheduler",
+    "securityContext": {},
+    "serviceAccount": "default",
+    "serviceAccountName": "default",
+    "terminationGracePeriodSeconds": 30,
+    "tolerations": [
+      {
+        "effect": "NoExecute",
+        "key": "node.kubernetes.io/not-ready",
+        "operator": "Exists",
+        "tolerationSeconds": 300
+      },
+      {
+        "effect": "NoExecute",
+        "key": "node.kubernetes.io/unreachable",
+        "operator": "Exists",
+        "tolerationSeconds": 300
+      }
+    ],
+    "volumes": [
+      {
+        "name": "mongo-data",
+        "persistentVolumeClaim": {
+          "claimName": "mongo-pvc"
+        }
+      },
+      {
+        "configMap": {
+          "defaultMode": 420,
+          "name": "mongo-init-config"
+        },
+        "name": "mongo-init"
+      },
+      {
+        "name": "kube-api-access-xczl6",
+        "projected": {
+          "defaultMode": 420,
+          "sources": [
+            {
+              "serviceAccountToken": {
+                "expirationSeconds": 3607,
+                "path": "token"
+              }
+            },
+            {
+              "configMap": {
+                "items": [
+                  {
+                    "key": "ca.crt",
+                    "path": "ca.crt"
+                  }
+                ],
+                "name": "kube-root-ca.crt"
+              }
+            },
+            {
+              "downwardAPI": {
+                "items": [
+                  {
+                    "fieldRef": {
+                      "apiVersion": "v1",
+                      "fieldPath": "metadata.namespace"
+                    },
+                    "path": "namespace"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "status": {
+    "conditions": [
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2024-11-28T08:23:48Z",
+        "status": "True",
+        "type": "PodReadyToStartContainers"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2024-11-28T08:23:46Z",
+        "status": "True",
+        "type": "Initialized"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2024-11-28T08:23:48Z",
+        "status": "True",
+        "type": "Ready"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2024-11-28T08:23:48Z",
+        "status": "True",
+        "type": "ContainersReady"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2024-11-28T08:23:46Z",
+        "status": "True",
+        "type": "PodScheduled"
+      }
+    ],
+    "containerStatuses": [
+      {
+        "containerID": "containerd://e5d606a265ec59bda55959987ab93f1cac87184825022c63af71c49f1aafdecd",
+        "image": "docker.io/library/mongo:5.0",
+        "imageID": "docker.io/library/mongo@sha256:e60ff56a306e6d9b6c0bd91800533cbc6863254b5aa510a06e56290d4866cdab",
+        "lastState": {},
+        "name": "mongo",
+        "ready": true,
+        "restartCount": 0,
+        "started": true,
+        "state": {
+          "running": {
+            "startedAt": "2024-11-28T08:23:47Z"
+          }
+        },
+        "volumeMounts": [
+          {
+            "mountPath": "/data/db",
+            "name": "mongo-data"
+          },
+          {
+            "mountPath": "/docker-entrypoint-initdb.d/mongo-init.js",
+            "name": "mongo-init"
+          },
+          {
+            "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+            "name": "kube-api-access-xczl6",
+            "readOnly": true,
+            "recursiveReadOnly": "Disabled"
+          }
+        ]
+      }
+    ],
+    "hostIP": "172.16.1.205",
+    "hostIPs": [
+      {
+        "ip": "172.16.1.205"
+      }
+    ],
+    "phase": "Running",
+    "podIP": "192.168.142.212",
+    "podIPs": [
+      {
+        "ip": "192.168.142.212"
+      }
+    ],
+    "qosClass": "BestEffort",
+    "startTime": "2024-11-28T08:23:46Z"
+  }
+}

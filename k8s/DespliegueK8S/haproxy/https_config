@@ -1,0 +1,30 @@
+
+mkdir /etc/apache2/ssl
+openssl genpkey -algorithm RSA -out /etc/apache2/ssl/server.key -aes256
+sudo openssl req -new -x509 -key /etc/apache2/ssl/server.key -out /etc/apache2/ssl/server.crt -days 10000
+
+
+modify /etc/apache2/sites-available/develop-ssl.conf
+	SSLCertificateFile 	/etc/apache2/ssl/server.crt
+	SSLCertificateKeyFile 	/etc/apache2/ssl/server.key
+
+
+sudo a2enmod ssl
+sudo a2ensite develop-ssl.conf
+
+sudo systemctl reload apache2
+
+
+sudo apache2ctl configtest
+
+
+Fowardin ip
+
+sudo a2enmod remoteip
+sudo systemctl restart apache2
+
+
+
+sudo openssl genpkey -algorithm RSA -out /etc/apache2/ssl/server.key -aes256
+sudo openssl req -new -key /etc/apache2/ssl/server.key -out /etc/apache2/ssl/server.csr
+sudo openssl x509 -req -days 365 -in /etc/apache2/ssl/server.csr -signkey /etc/apache2/ssl/server.key -out /etc/apache2/ssl/server.crt

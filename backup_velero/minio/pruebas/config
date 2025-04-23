@@ -1,0 +1,44 @@
+https://min.io/docs/minio/linux/reference/minio-mc.html#minio-client
+
+---------------------------------------------------------------
+# Configuracion debucket
+# mc alias set local http://127.0.0.1:9000 admin admin123
+mc alias set pruebasBQ http://127.0.0.1:9000 admin admin123
+
+# mc mb local/pruebas-backups
+mc mb pruebasBQ/pruebas-backups
+
+---------------------------------------------------------------
+# install mc
+curl -k https://dl.min.io/client/mc/release/linux-amd64/mc \
+  --create-dirs \
+  -o $HOME/minio-binaries/mc
+
+chmod +x $HOME/minio-binaries/mc
+export PATH=$PATH:$HOME/minio-binaries/
+
+mc --help
+
+---------------------------------------------------------------
+# ##### ##### ####
+# Dar permisos a bucket
+# ##### ##### ####
+# Añadir files
+mc cp pruebas pruebasBQ/pruebas-backups/kworker01/despliegue/
+
+# Dar permisos de solo descarga a una carpeta de un folder 
+mc anonymous set download pruebasBQ/pruebas-backups/fotos
+  -> download permite acceso publico de solo lectura  
+
+
+# NO uso 
+# Añadir politica publica
+mc admin policy create pruebasBQ public-policy public-policy.json
+mc admin policy attach pruebasBQ public-policy --bucket pruebas-backups
+
+# Para fotos
+mc admin policy create pruebasBQ fotos-policy fotos-policy.json
+mc admin policy attach pruebasBQ fotos-policy --user admin
+
+# Eliminar configuraciones 
+mc admin policy remove pruebasBQ fotos-policy

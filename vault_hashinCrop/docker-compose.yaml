@@ -1,0 +1,14 @@
+services:
+    vault:
+        image: hashicorp/vault:latest
+        container_name: vault
+        ports:
+            - "8200:8200"
+        environment:
+            VAULT_ADDR: "http://172.0.0.1:8200"
+            VAULT_DEV_ROOT_TOKEN_ID: "pruebas123"
+            VAULT_TOKEN: "pruebas123"
+        cap_add:
+            - IPC_LOCK
+
+# https://developer.hashicorp.com/vault/tutorials/get-started/setup

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mi-pod-httpd         # Nombre del pod
+  labels:
+    app: httpd               # Etiqueta para identificar el pod
+spec:
+  containers:
+    - name: httpd-container  # Nombre del contenedor dentro del pod
+      image: httpd:latest    # Imagen de contenedor de Apache HTTP Server
+      ports:
+        - containerPort: 80  # Puerto expuesto por el contenedor (puerto HTTP)

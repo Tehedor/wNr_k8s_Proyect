@@ -1,0 +1,251 @@
+{
+  "apiVersion": "v1",
+  "kind": "Pod",
+  "metadata": {
+    "annotations": {
+      "cni.projectcalico.org/containerID": "12a0d9463348769e615658421629d499577764bf0ab515e00e78e061c9f5b918",
+      "cni.projectcalico.org/podIP": "192.168.142.216/32",
+      "cni.projectcalico.org/podIPs": "192.168.142.216/32"
+    },
+    "creationTimestamp": "2024-11-28T08:23:46Z",
+    "generateName": "mysql-finances-deployment-77884f9658-",
+    "labels": {
+      "app": "mysql-finances",
+      "pod-template-hash": "77884f9658"
+    },
+    "name": "mysql-finances-deployment-77884f9658-jlmx4",
+    "namespace": "default",
+    "ownerReferences": [
+      {
+        "apiVersion": "apps/v1",
+        "blockOwnerDeletion": true,
+        "controller": true,
+        "kind": "ReplicaSet",
+        "name": "mysql-finances-deployment-77884f9658",
+        "uid": "5549d339-65b6-4984-a06b-a8792221aaa1"
+      }
+    ],
+    "resourceVersion": "1389936",
+    "uid": "929e09ab-88c6-47b9-a4da-a481b7f1ac5a"
+  },
+  "spec": {
+    "containers": [
+      {
+        "env": [
+          {
+            "name": "MYSQL_ROOT_PASSWORD",
+            "value": "password"
+          },
+          {
+            "name": "MYSQL_DATABASE",
+            "value": "financedb"
+          }
+        ],
+        "image": "mysql:8.0",
+        "imagePullPolicy": "IfNotPresent",
+        "lifecycle": {
+          "postStart": {
+            "exec": {
+              "command": [
+                "sh",
+                "-c",
+                "while ! mysqladmin ping -h 127.0.0.1 --silent; do sleep 2; done; mysql -u root -ppassword financedb < /docker-entrypoint-initdb.d/mysql-finances-init.sql"
+              ]
+            }
+          }
+        },
+        "name": "mysql-finances",
+        "ports": [
+          {
+            "containerPort": 3306,
+            "protocol": "TCP"
+          }
+        ],
+        "resources": {},
+        "terminationMessagePath": "/dev/termination-log",
+        "terminationMessagePolicy": "File",
+        "volumeMounts": [
+          {
+            "mountPath": "/var/lib/mysql",
+            "name": "mysql-data-finances"
+          },
+          {
+            "mountPath": "/docker-entrypoint-initdb.d",
+            "name": "mysql-finances-init"
+          },
+          {
+            "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+            "name": "kube-api-access-xtwpd",
+            "readOnly": true
+          }
+        ]
+      }
+    ],
+    "dnsPolicy": "ClusterFirst",
+    "enableServiceLinks": true,
+    "nodeName": "kworker02.lab.local",
+    "preemptionPolicy": "PreemptLowerPriority",
+    "priority": 0,
+    "restartPolicy": "Always",
+    "schedulerName": "default-scheduler",
+    "securityContext": {},
+    "serviceAccount": "default",
+    "serviceAccountName": "default",
+    "terminationGracePeriodSeconds": 30,
+    "tolerations": [
+      {
+        "effect": "NoExecute",
+        "key": "node.kubernetes.io/not-ready",
+        "operator": "Exists",
+        "tolerationSeconds": 300
+      },
+      {
+        "effect": "NoExecute",
+        "key": "node.kubernetes.io/unreachable",
+        "operator": "Exists",
+        "tolerationSeconds": 300
+      }
+    ],
+    "volumes": [
+      {
+        "name": "mysql-data-finances",
+        "persistentVolumeClaim": {
+          "claimName": "mysql-finances-pvc"
+        }
+      },
+      {
+        "configMap": {
+          "defaultMode": 420,
+          "items": [
+            {
+              "key": "mysql-finances-init.sql",
+              "path": "mysql-finances-init.sql"
+            }
+          ],
+          "name": "mysql-finances-init-config"
+        },
+        "name": "mysql-finances-init"
+      },
+      {
+        "name": "kube-api-access-xtwpd",
+        "projected": {
+          "defaultMode": 420,
+          "sources": [
+            {
+              "serviceAccountToken": {
+                "expirationSeconds": 3607,
+                "path": "token"
+              }
+            },
+            {
+              "configMap": {
+                "items": [
+                  {
+                    "key": "ca.crt",
+                    "path": "ca.crt"
+                  }
+                ],
+                "name": "kube-root-ca.crt"
+              }
+            },
+            {
+              "downwardAPI": {
+                "items": [
+                  {
+                    "fieldRef": {
+                      "apiVersion": "v1",
+                      "fieldPath": "metadata.namespace"
+                    },
+                    "path": "namespace"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "status": {
+    "conditions": [
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2024-11-28T08:23:53Z",
+        "status": "True",
+        "type": "PodReadyToStartContainers"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2024-11-28T08:23:46Z",
+        "status": "True",
+        "type": "Initialized"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2024-11-28T08:23:53Z",
+        "status": "True",
+        "type": "Ready"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2024-11-28T08:23:53Z",
+        "status": "True",
+        "type": "ContainersReady"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2024-11-28T08:23:46Z",
+        "status": "True",
+        "type": "PodScheduled"
+      }
+    ],
+    "containerStatuses": [
+      {
+        "containerID": "containerd://53b4a514a837d5974b23bd879e4f430dcbb5fde0abd467a7e041d54b37064cd1",
+        "image": "docker.io/library/mysql:8.0",
+        "imageID": "docker.io/library/mysql@sha256:d58ac93387f644e4e040c636b8f50494e78e5afc27ca0a87348b2f577da2b7ff",
+        "lastState": {},
+        "name": "mysql-finances",
+        "ready": true,
+        "restartCount": 0,
+        "started": true,
+        "state": {
+          "running": {
+            "startedAt": "2024-11-28T08:23:48Z"
+          }
+        },
+        "volumeMounts": [
+          {
+            "mountPath": "/var/lib/mysql",
+            "name": "mysql-data-finances"
+          },
+          {
+            "mountPath": "/docker-entrypoint-initdb.d",
+            "name": "mysql-finances-init"
+          },
+          {
+            "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+            "name": "kube-api-access-xtwpd",
+            "readOnly": true,
+            "recursiveReadOnly": "Disabled"
+          }
+        ]
+      }
+    ],
+    "hostIP": "172.16.1.205",
+    "hostIPs": [
+      {
+        "ip": "172.16.1.205"
+      }
+    ],
+    "phase": "Running",
+    "podIP": "192.168.142.216",
+    "podIPs": [
+      {
+        "ip": "192.168.142.216"
+      }
+    ],
+    "qosClass": "BestEffort",
+    "startTime": "2024-11-28T08:23:46Z"
+  }
+}

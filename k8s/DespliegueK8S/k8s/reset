@@ -1,0 +1,8 @@
+sudo kubeadm reset
+
+sudo rm -rf /etc/kubernetes/
+sudo rm -f /etc/systemd/system/kubelet.service.d/*
+sudo rm -f /etc/systemd/system/kubelet.service
+
+sudo rm -rf /etc/cni/
+sudo rm -rf /opt/cni/

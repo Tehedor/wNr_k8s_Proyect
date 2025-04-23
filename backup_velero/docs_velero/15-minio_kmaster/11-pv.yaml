@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-storage
+  labels:
+    env: prod
+spec:
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "storageos" # StorageOS storageClass
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/mnt/data" # Cambia esta ruta según tu configuración

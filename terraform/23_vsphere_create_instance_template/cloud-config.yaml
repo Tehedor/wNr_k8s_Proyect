@@ -1,0 +1,10 @@
+# cloud-config.yaml
+#cloud-config
+locale: es_ES.UTF-8
+timezone: Europe/Madrid
+keyboard:
+  layout: es
+packages:
+  - nginx
+runcmd:
+  - echo "Configuración aplicada con éxito"

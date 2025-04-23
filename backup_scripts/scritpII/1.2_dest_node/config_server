@@ -1,0 +1,3 @@
+# develop ALL=(ALL) NOPASSWD: /home/develop/Documents/wipe-Rebuild/scritpII/1.2_dest_node/export_volume.sh
+
+echo "develop ALL=(ALL) NOPASSWD: /home/develop/Documents/wipe-Rebuild/scritpII/1.2_dest_node/export_volume.sh" | sudo tee /etc/sudoers.d/wipe-rebuild

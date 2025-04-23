@@ -1,0 +1,59 @@
+# 1. Recursos de Aplicación
+Se utilizan para ejecutar aplicaciones en el clúster.
+
++ Pod: La unidad básica de ejecución en Kubernetes que contiene uno o más contenedores.
++ Deployment: Gestiona la creación y el escalado de pods y realiza actualizaciones controladas.
++ ReplicaSet: Asegura que un número específico de réplicas de un pod estén ejecutándose en todo momento (normalmente manejado por un Deployment).
++ StatefulSet: Gestiona pods con identidad persistente, útil para aplicaciones con estado.
++ DaemonSet: Asegura que un pod específico esté ejecutándose en cada nodo del clúster.
++ Job: Crea pods para tareas de corta duración que terminan cuando completan su trabajo.
++ CronJob: Programa la ejecución periódica de trabajos (Jobs).
++ ReplicationController: Similar a ReplicaSet, pero menos usado; es más antiguo.
+
+# 2. Recursos de Red
+Gestionan la comunicación dentro y fuera del clúster.
+
++ Service: Expone un conjunto de pods como un servicio único (ClusterIP, NodePort, LoadBalancer, ExternalName).
++ Ingress: Gestiona el acceso externo a los servicios mediante reglas HTTP/HTTPS.
++ Endpoint: Asocia un servicio a un conjunto de direcciones IP (usado internamente).
++ NetworkPolicy: Define reglas para controlar el tráfico de red entre pods.
+
+# 3. Recursos de Almacenamiento
+Gestionan volúmenes persistentes y temporales.
+
++ PersistentVolume (PV): Define un recurso de almacenamiento en el clúster.
++ PersistentVolumeClaim (PVC): Solicita el uso de un PersistentVolume.
++ StorageClass: Define diferentes clases de almacenamiento para aprovisionamiento dinámico de PVs.
++ VolumeSnapshot: Crea instantáneas de un volumen para respaldos.
+# 4. Recursos de Configuración
+Gestionan la configuración de aplicaciones y secretos.
+
++ ConfigMap: Almacena datos de configuración en formato clave-valor.
++ Secret: Almacena datos sensibles, como contraseñas o tokens, encriptados.
++ ServiceAccount: Define una identidad para pods que interactúan con el clúster.
++ Role: Define permisos específicos dentro de un namespace.
++ RoleBinding: Asocia un Role con usuarios o ServiceAccounts.
++ ClusterRole: Similar a Role, pero válido para todo el clúster.
++ ClusterRoleBinding: Asocia un ClusterRole con usuarios o ServiceAccounts.
+# 5. Recursos de Monitorización y Administración
+Ayudan a gestionar el estado y el comportamiento del clúster.
+
++ Namespace: Segmenta el clúster en espacios lógicos aislados.
++ Node: Representa un nodo físico o virtual dentro del clúster.
++ Event: Registra eventos importantes del clúster.
++ LimitRange: Establece límites de recursos para pods y contenedores en un namespace.
++ ResourceQuota: Restringe el uso de recursos en un namespace.
+# 6. Recursos de Extensibilidad
+Permiten extender la funcionalidad nativa de Kubernetes.
+
++ CustomResourceDefinition (CRD): Permite definir tus propios recursos personalizados.
++ HorizontalPodAutoscaler: Ajusta automáticamente la cantidad de réplicas de pods basándose en métricas como el uso de CPU.
++ VerticalPodAutoscaler: Ajusta automáticamente los recursos de CPU/memoria asignados a un pod.
++ PodDisruptionBudget (PDB): Define cuántos pods pueden estar fuera de servicio durante una interrupción.
++ MutatingWebhookConfiguration y ValidatingWebhookConfiguration: Interceptan solicitudes para modificar o validar recursos personalizados.
+# 7. Recursos de Seguridad
+Ayudan a gestionar la seguridad de los pods y las aplicaciones.
+
++ PodSecurityPolicy (PSP) (obsoleto): Restringía el acceso y las capacidades de los pods.
++ NetworkPolicy: Controla el acceso de red entre pods.
++ SecurityContext: Configura opciones de seguridad específicas para pods y contenedores.

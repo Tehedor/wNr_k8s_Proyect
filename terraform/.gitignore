@@ -1,0 +1,15 @@
+vSphere_terraform
+00_config_api_vmworkstation/vmware-workstation-api-client
+
+# Ignorar todos los archivos .tfvars en cualquier subdirectorio
+**/*.tfvars
+
+terraform.tfstate
+
+.terraform
+.terraform.lock.hcl
+main.tf.BACKUP
+terraform.tfstate.backup
+terraform.tfstate
+
+.vscode

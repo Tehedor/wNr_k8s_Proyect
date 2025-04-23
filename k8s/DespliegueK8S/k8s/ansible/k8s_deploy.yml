@@ -1,0 +1,166 @@
+#First steps for Kubernetes cluster deployment
+---
+- name: Set admin environment
+  hosts: k8instances
+  become: true
+  become_method: sudo
+  become_user: root
+  vars_files:
+    - k8s_vars.yml
+  tasks:
+
+    - name: Update package list
+      apt:
+        update_cache: yes
+
+    - name: Install required packages
+      apt:
+        name: "{{ admin_pkges }}"
+        state: latest
+
+
+  # Disable swap
+    - name: Disable swap
+      command: swapoff -a
+
+    - name: Modify /etc/fstab file
+      command: sed -i.bak '/swap/s/^\//#\//' /etc/fstab
+
+  # # Modify SELinux
+  #   - name: Set SELinux to permissive
+  #     selinux:
+  #       policy: targeted
+  #       state: permissive
+
+  #   - name: Modify SELinux config file
+  #     lineinfile:
+  #       path: /etc/selinux/config 
+  #       regex: "SELINUX=enforcing"
+  #       state: present
+  #       line: "SELINUX=permissive" 
+
+# Keyring directory
+    - name: Create keyrings directory
+      file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: '0755'
+
+# Docker
+    - name: Check if Docker repository exists
+      stat:
+        path: "/etc/apt/sources.list.d/docker.list"
+      register: docker_repo_check
+
+    - name: Check if docker GPG key already exists
+      stat:
+        path: "/etc/apt/keyrings/docker.asc"
+      register: gpg_docker_check
+
+    - name: Download the public signing key for the Kubernetes package repositories
+      shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+      when: gpg_docker_check.stat.exists == false
+
+    - name: Set read permissions for all users on Docker GPG key
+      file:
+        path: /etc/apt/keyrings/docker.asc
+        mode: '0644'
+
+    - name: Add Docker Repository
+      lineinfile:
+        path: "/etc/apt/sources.list.d/docker.list"
+        line: "{{ docker_repo_content.ubuntu24 }}"
+        create: true
+      when: docker_repo_check.stat.exists == false
+
+# K8s
+    - name: Check if Kubernetes repository exists
+      stat:
+        path: "/etc/apt/sources.list.d/kubernetes.list"
+      register: kube_repo_check
+
+    - name: Check if Kubernetes GPG key already exists
+      stat:
+        path: "/etc/apt/keyrings/kubernetes-apt-keyring.gpg"
+      register: gpg_check
+
+    - name: Download the public signing key for the Kubernetes package repositories
+      shell: curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.31/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+      when: gpg_check.stat.exists == false
+
+    - name: Add Kubernetes Repository
+      lineinfile:
+        path: "/etc/apt/sources.list.d/kubernetes.list"
+        line: "{{ kube_repo_content.ubuntu }}"
+        create: true
+      when: kube_repo_check.stat.exists == false
+
+# Install docker and k8s packages
+    - name: Update package list again
+      apt:
+        update_cache: yes
+
+    - name: Install Kubernetes packages
+      apt:
+        name: "{{ pkges }}"
+        state: latest
+
+    - name: Hold Kubernetes packages
+      command: apt-mark hold "{{ item }}"
+      loop: "{{ pkges }}"
+
+    - name: Enable and start Kubelet service
+      ansible.builtin.systemd:
+        name: kubelet
+        enabled: true
+        state: started
+
+# containerd
+    # - name: Install containerd
+    #   apt:
+    #     name: containerd
+    #     state: latest
+    
+    # - name: Check if default containerd config file exists
+    #   stat:
+    #     path: /etc/containerd/config.toml
+    #   register: containerd_config_check
+
+    - name: Check if default containerd config file exists
+      stat:
+        path: /etc/containerd/config.toml
+      register: containerd_config_check
+    
+    - name: Create containerd config directory
+      file:
+        path: /etc/containerd
+        state: directory
+      when: not containerd_config_check.stat.exists
+    
+    - name: Generate default containerd config file
+      command: containerd config default
+      register: containerd_config
+      when: not containerd_config_check.stat.exists
+    
+    - name: Write containerd config file
+      copy:
+        content: "{{ containerd_config.stdout }}"
+        dest: /etc/containerd/config.toml
+      when: not containerd_config_check.stat.exists
+
+    - name: Modify /etc/containerd/config.toml file to set SystemdCgroup to true
+      ansible.builtin.lineinfile:
+        path: /etc/containerd/config.toml
+        regexp: '^( *)SystemdCgroup = false'
+        line: '\1SystemdCgroup = true'
+        backrefs: yes
+
+    # - name: Restart containerd service
+    #   systemd:
+    #     name: containerd
+    #     state: restarted
+
+    # - name: Enable containerd service
+    #   systemd:
+    #     name: containerd
+    #     enabled: yes
