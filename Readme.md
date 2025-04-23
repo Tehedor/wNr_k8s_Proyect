@@ -10,7 +10,7 @@ Scirpts para hacer backup de todos los componentes de un cluster de k8s sin ning
 Aplicación que nos permite hacer copias de seguridad de un clúster de k8s y almacenarlas en cualquier almacenamiento compatible con S3.
 
 ## detectar_Intrusos  
-Este direcotrio se compone de diferentes configuraciones de IDS para detectar intrusos en una instancia. Se ha decidido utilizar el HIDS **Ossec**, el cual se desplegará en cada una de las máquinas del clúster de k8s. Cuando se detecte un intruso, se enviará una señal con información de la instancia afectada a uno de los másteres. Estos másteres tendrán un daemon que estará a la escucha de esta petición y, al recibirla, creará una copia de seguridad de todo el clúster con Velero y ejecutará, a través de un contenedor que contiene todos los scripts necesarios de Terraform, la eliminación de la máquina afectada para crear una nueva.
+Este direcotrio se compone de diferentes configuraciones de IDS para detectar intrusos en una instancia. Se ha decidido utilizar el HIDS **Ossec**, el cual se desplegará en cada una de las máquinas del clúster de k8s. Cuando se detecte un intruso, se enviará una señal con información de la instancia afectada a uno de los másteres. Estos másteres tendrán el daemon **ids_daemonServer** (./detectar_intrusos/ids_daemonServer) que estará a la escucha de esta petición y, al recibirla, creará una copia de seguridad de todo el clúster con Velero y ejecutará, a través de un contenedor que contiene todos los scripts necesarios de Terraform, la eliminación de la máquina afectada para crear una nueva.
 
 ## k8s
 Contiene todo lo necesario para configurar un cluster de k8s con ansible.

@@ -1,5 +1,6 @@
 
 # IDS server
+Programa en C que se ejecutará como daemon para gestionar las peticiones de detección de intrusos.
 
 ## Scripit 
 
